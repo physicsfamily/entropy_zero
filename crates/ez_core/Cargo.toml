@@ -1,0 +1,10 @@
+[package]
+name = "ez_core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Core abstractions, traits, and taxonomy for the Entropy Zero simulation platform"
+
+[dependencies]
+bevy = { workspace = true, features = ["bevy_asset", "bevy_render"] }
+log.workspace = true

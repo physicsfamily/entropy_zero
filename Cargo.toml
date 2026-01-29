@@ -1,28 +1,37 @@
-[package]
-name = "entropy_zero"
+[workspace]
+resolver = "2"
+members = [
+    "crates/ez_core",
+    "crates/ez_renderer",
+    "crates/ez_ui",
+    "crates/ez_physics",
+    "simulations/classical_mechanics",
+    "apps/web",
+]
+
+[workspace.package]
 version = "0.1.0"
 edition = "2021"
-description = "Strategy Iron Logic - High-performance simulation core"
 license = "MIT"
+repository = "https://github.com/physicsfamily/entropy_zero"
 
-[dependencies]
-bevy = { version = "0.14", default-features = false, features = [
-    "bevy_asset",
-    "bevy_winit",
-    "bevy_core_pipeline",
-    "bevy_pbr",
-    "bevy_render",
-    "bevy_state",
-    "bevy_ui",
-    "png",
-    "x11",
-    "webgl2",
-    "tonemapping_luts",
-] }
+[workspace.dependencies]
+# Core dependencies
+bevy = { version = "0.14", default-features = false }
 bevy_egui = "0.28"
 log = "0.4"
 wasm-bindgen = "0.2"
 rand = "0.8"
+
+# Math and physics
+nalgebra = "0.33"
+
+# Internal crates
+ez_core = { path = "crates/ez_core" }
+ez_renderer = { path = "crates/ez_renderer" }
+ez_ui = { path = "crates/ez_ui" }
+ez_physics = { path = "crates/ez_physics" }
+classical_mechanics = { path = "simulations/classical_mechanics" }
 
 [profile.release]
 opt-level = 3

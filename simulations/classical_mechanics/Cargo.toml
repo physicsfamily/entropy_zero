@@ -1,0 +1,22 @@
+[package]
+name = "classical_mechanics"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Classical mechanics simulations for Entropy Zero"
+
+[dependencies]
+bevy = { workspace = true, features = [
+    "bevy_asset",
+    "bevy_winit",
+    "bevy_core_pipeline",
+    "bevy_pbr",
+    "bevy_render",
+] }
+bevy_egui.workspace = true
+ez_core.workspace = true
+ez_renderer.workspace = true
+ez_ui.workspace = true
+ez_physics.workspace = true
+log.workspace = true
+rand.workspace = true

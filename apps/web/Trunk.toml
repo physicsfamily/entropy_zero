@@ -1,0 +1,11 @@
+[build]
+target = "index.html"
+dist = "dist"
+
+[watch]
+ignore = ["dist"]
+
+[[hooks]]
+stage = "post_build"
+command = "sh"
+command_arguments = ["-c", "cp index.html dist/"]

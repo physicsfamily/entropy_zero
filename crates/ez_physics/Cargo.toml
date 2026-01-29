@@ -1,0 +1,12 @@
+[package]
+name = "ez_physics"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Shared physics primitives for Entropy Zero simulations"
+
+[dependencies]
+bevy.workspace = true
+ez_core.workspace = true
+log.workspace = true
+nalgebra.workspace = true
