@@ -1,0 +1,11 @@
+# Cloudflare Pages SPA Redirects
+# All routes should serve index.html for client-side routing
+
+# API routes (if any) should be excluded
+# /api/*  /api/:splat  200
+
+# Simulation routes - serve index.html
+/sim/*  /index.html  200
+
+# Fallback for all other routes
+/*  /index.html  200

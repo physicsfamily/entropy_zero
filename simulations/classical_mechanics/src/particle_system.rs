@@ -40,8 +40,8 @@ impl Simulation for ParticleSystemSimulation {
                 name: "Particle Count",
                 description: "Number of particles to simulate",
                 min: 100,
-                max: 100_000,
-                default: 10_000,
+                max: 1_000_000,
+                default: 100_000,
             },
             ParameterDef::Float {
                 id: "gravity",
@@ -128,7 +128,7 @@ pub struct ParticleConfig {
 impl Default for ParticleConfig {
     fn default() -> Self {
         Self {
-            particle_count: 10_000,
+            particle_count: 100_000,
             gravity: Vec3::new(0.0, -9.8, 0.0),
             bounds: 50.0,
             speed_multiplier: 1.0,

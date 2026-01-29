@@ -30,20 +30,53 @@ entropy_zero/
 
 ## Quick Start
 
-### Desktop
+### Prerequisites
 
 ```bash
+# Install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Add WASM target
+rustup target add wasm32-unknown-unknown
+
+# Install Trunk (for web builds)
+cargo install trunk
+```
+
+### Development (Hot Reload) 🔥
+
+The recommended way to develop:
+
+```bash
+# Using Make
+make web
+
+# Or using Just (cargo install just)
+just web
+```
+
+This starts a hot-reloading dev server:
+- **Auto-refresh**: Save your code → browser updates in ~2 seconds
+- **F12 Console**: See Rust logs directly in browser DevTools
+- **egui Panels**: Tweak parameters live without recompiling
+
+### Desktop (Native)
+
+```bash
+make native
+# or
 cargo run -p entropy_zero_web
 ```
 
-### Web (requires Trunk)
+### All Commands
 
-```bash
-cd apps/web
-trunk serve
-```
-
-Then open [http://localhost:8080](http://localhost:8080).
+| Command | Description |
+|---------|-------------|
+| `make web` | Start hot-reload dev server |
+| `make native` | Run native desktop version |
+| `make check` | Quick compile check |
+| `make test` | Run all tests |
+| `make clean` | Clean build artifacts |
 
 ## Simulation Domains
 
@@ -61,7 +94,13 @@ Then open [http://localhost:8080](http://localhost:8080).
 
 ## Contributing
 
-See [docs/adding_simulations.md](docs/adding_simulations.md) for how to add new simulations.
+See [docs/developer_guide.md](docs/developer_guide.md) for a comprehensive guide on creating new simulations, including:
+
+- Step-by-step walkthrough
+- Component, Resource, and System patterns
+- UI integration with egui
+- Testing and debugging tips
+- Complete example implementations
 
 ## License
 

@@ -18,7 +18,7 @@ repository = "https://github.com/physicsfamily/entropy_zero"
 [workspace.dependencies]
 # Core dependencies
 bevy = { version = "0.14", default-features = false }
-bevy_egui = "0.28"
+bevy_egui = { version = "0.28", default-features = false, features = ["default_fonts", "render"] }
 log = "0.4"
 wasm-bindgen = "0.2"
 rand = "0.8"
@@ -32,6 +32,8 @@ ez_renderer = { path = "crates/ez_renderer" }
 ez_ui = { path = "crates/ez_ui" }
 ez_physics = { path = "crates/ez_physics" }
 classical_mechanics = { path = "simulations/classical_mechanics" }
+
+
 
 [profile.release]
 opt-level = 3

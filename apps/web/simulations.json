@@ -1,0 +1,171 @@
+{
+  "dimensions": {
+    "logic": {
+      "name": "逻辑与基石",
+      "name_en": "Logic & Foundation",
+      "description": "Digital circuits, hardware design, and computational foundations"
+    },
+    "tensor": {
+      "name": "物理与场论",
+      "name_en": "Physics & Field Theory",
+      "description": "Fluid dynamics, electromagnetism, and relativistic physics"
+    },
+    "genesis": {
+      "name": "生命与涌现",
+      "name_en": "Life & Emergence",
+      "description": "Cellular automata, evolution, and emergent behaviors"
+    },
+    "neural": {
+      "name": "智能与认知",
+      "name_en": "Intelligence & Cognition",
+      "description": "Machine learning, neural networks, and AI systems"
+    },
+    "axiom": {
+      "name": "数学与公理",
+      "name_en": "Mathematics & Axioms",
+      "description": "Fractals, chaos theory, and mathematical foundations"
+    }
+  },
+  "simulations": {
+    "gate-playground": {
+      "dimension": "logic",
+      "title": "逻辑门沙盒",
+      "title_en": "Logic Gate Playground",
+      "description": "Build AND/OR/NOT circuits interactively",
+      "status": "planned"
+    },
+    "audio-synth": {
+      "dimension": "logic",
+      "title": "听见电路",
+      "title_en": "Audio Synthesizer",
+      "description": "Frequency visualization and audio debugging",
+      "status": "planned"
+    },
+    "riscv-pipeline": {
+      "dimension": "logic",
+      "title": "CPU 流水线",
+      "title_en": "RISC-V Pipeline",
+      "description": "5-stage pipeline hazards and bubbles visualization",
+      "status": "planned"
+    },
+    "fluid-tunnel": {
+      "dimension": "tensor",
+      "title": "虚拟风洞",
+      "title_en": "Virtual Wind Tunnel",
+      "description": "Real-time CFD fluid dynamics simulation",
+      "status": "demo"
+    },
+    "black-hole": {
+      "dimension": "tensor",
+      "title": "引力透镜",
+      "title_en": "Gravitational Lensing",
+      "description": "Light bending in general relativity",
+      "status": "planned"
+    },
+    "maxwell-fields": {
+      "dimension": "tensor",
+      "title": "麦克斯韦场",
+      "title_en": "Maxwell Fields",
+      "description": "Dynamic electric and magnetic field interactions",
+      "status": "planned"
+    },
+    "double-slit": {
+      "dimension": "tensor",
+      "title": "双缝干涉",
+      "title_en": "Double Slit Experiment",
+      "description": "Quantum wave function probability cloud collapse",
+      "status": "planned"
+    },
+    "orbital-mechanics": {
+      "dimension": "tensor",
+      "title": "轨道力学",
+      "title_en": "Orbital Mechanics",
+      "description": "Three-body problem and Lagrange points",
+      "status": "active"
+    },
+    "lenia-continuum": {
+      "dimension": "genesis",
+      "title": "Lenia",
+      "title_en": "Lenia: Continuous Life",
+      "description": "Continuous cellular automata with mathematical lifeforms",
+      "status": "planned"
+    },
+    "game-of-life": {
+      "dimension": "genesis",
+      "title": "康威生命",
+      "title_en": "Conway's Game of Life",
+      "description": "Infinite canvas with glider guns",
+      "status": "planned"
+    },
+    "evolution-arena": {
+      "dimension": "genesis",
+      "title": "进化竞技场",
+      "title_en": "Evolution Arena",
+      "description": "Genetic algorithm-driven creature walking training",
+      "status": "planned"
+    },
+    "slime-network": {
+      "dimension": "genesis",
+      "title": "粘菌路网",
+      "title_en": "Slime Mold Network",
+      "description": "City traffic planning using slime mold algorithm",
+      "status": "planned"
+    },
+    "llm-gate": {
+      "dimension": "neural",
+      "title": "语义逻辑门",
+      "title_en": "LLM Logic Gate",
+      "description": "Natural language logic gates powered by LLMs",
+      "status": "planned"
+    },
+    "loss-landscape": {
+      "dimension": "neural",
+      "title": "梯度下降山谷",
+      "title_en": "Loss Landscape",
+      "description": "3D visualization of neural network optimization",
+      "status": "planned"
+    },
+    "backprop-viz": {
+      "dimension": "neural",
+      "title": "反向传播",
+      "title_en": "Backpropagation Visualizer",
+      "description": "Real-time weight update heatmaps",
+      "status": "planned"
+    },
+    "attention-head": {
+      "dimension": "neural",
+      "title": "注意力机制",
+      "title_en": "Attention Mechanism",
+      "description": "Transformer internal wiring visualization",
+      "status": "planned"
+    },
+    "mandelbrot-zoom": {
+      "dimension": "axiom",
+      "title": "曼德博集",
+      "title_en": "Mandelbrot Set",
+      "description": "Infinite zoom into the fractal universe",
+      "status": "planned"
+    },
+    "fourier-canvas": {
+      "dimension": "axiom",
+      "title": "傅里叶画板",
+      "title_en": "Fourier Canvas",
+      "description": "Draw any curve with circular motion",
+      "status": "planned"
+    },
+    "chaos-pendulum": {
+      "dimension": "axiom",
+      "title": "双摆混沌",
+      "title_en": "Double Pendulum Chaos",
+      "description": "Butterfly effect sensitivity demonstration",
+      "status": "planned"
+    },
+    "turing-machine": {
+      "dimension": "axiom",
+      "title": "通用图灵机",
+      "title_en": "Universal Turing Machine",
+      "description": "Tape read/write head visualization",
+      "status": "planned"
+    }
+  }
+}

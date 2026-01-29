@@ -8,4 +8,4 @@ ignore = ["dist"]
 [[hooks]]
 stage = "post_build"
 command = "sh"
-command_arguments = ["-c", "cp index.html dist/"]
+command_arguments = ["-c", "cp index.html dist/ && cp _redirects dist/ && cp _headers dist/"]

@@ -17,6 +17,7 @@ bevy = { workspace = true, features = [
     "png",
     "webgl2",
     "tonemapping_luts",
+    "trace",
 ] }
 bevy_egui.workspace = true
 ez_core.workspace = true
@@ -25,3 +26,12 @@ ez_ui.workspace = true
 classical_mechanics.workspace = true
 log.workspace = true
 wasm-bindgen.workspace = true
+
+# WASM debugging - maps Rust panics to browser console
+console_error_panic_hook = "0.1"
+# WASM logging - maps log macros to browser console  
+console_log = "1.0"
+# Random number generation for WASM
+getrandom = { version = "0.3", features = ["wasm_js"] }
+# UUID generation for WASM
+uuid = { version = "1.10", features = ["v4", "js"] }
