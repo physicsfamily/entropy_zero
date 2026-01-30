@@ -26,9 +26,16 @@ use ez_core::prelude::*;
 // Constants
 // ══════════════════════════════════════════════════════════════════════════════
 
-pub const GRID_SIZE: usize = 256;
+pub const GRID_WIDTH: usize = 640;
+pub const GRID_HEIGHT: usize = 400;
 pub const GRID_SCALE: f32 = 2.0;
 pub const MAX_PROBE_HISTORY: usize = 512;
+
+// UI Constants
+pub const TOOLBOX_PANEL_WIDTH: f32 = 180.0;
+pub const INSPECTOR_PANEL_WIDTH: f32 = 220.0;
+pub const DATA_PANEL_HEIGHT: f32 = 150.0;
+pub const TOP_BAR_HEIGHT: f32 = 40.0; // Approximate height for calculation
 
 // ══════════════════════════════════════════════════════════════════════════════
 // Simulation Definition
@@ -144,6 +151,7 @@ impl Plugin for RippleTankPlugin {
                     render_toolbox_ui,
                     render_inspector_ui,
                     render_data_panel_ui,
+                    fit_camera_to_viewport,
                 ),
             );
     }

@@ -4,7 +4,7 @@ use bevy::prelude::*;
 use std::f32::consts::PI;
 
 use super::{
-    components::*, resources::*, GRID_SCALE, GRID_SIZE, MAX_PROBE_HISTORY,
+    components::*, resources::*, GRID_SCALE, GRID_WIDTH, GRID_HEIGHT, MAX_PROBE_HISTORY,
 };
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -27,8 +27,8 @@ pub fn setup_scene(
 
     // Create wave field visualization texture
     let size = bevy::render::render_resource::Extent3d {
-        width: GRID_SIZE as u32,
-        height: GRID_SIZE as u32,
+        width: GRID_WIDTH as u32,
+        height: GRID_HEIGHT as u32,
         depth_or_array_layers: 1,
     };
 
@@ -172,17 +172,18 @@ pub fn update_moving_sources(
     if config.paused { return; }
 
     let dt = time.delta_seconds() * config.time_scale;
-    let bounds = (GRID_SIZE as f32 / 2.0) * GRID_SCALE;
+    let bounds_x = (GRID_WIDTH as f32 / 2.0) * GRID_SCALE;
+    let bounds_y = (GRID_HEIGHT as f32 / 2.0) * GRID_SCALE;
 
     for (mut transform, moving) in sources.iter_mut() {
         transform.translation.x += moving.velocity.x * dt;
         transform.translation.y += moving.velocity.y * dt;
 
-        if transform.translation.x.abs() > bounds {
-            transform.translation.x = -transform.translation.x.signum() * (bounds - 10.0);
+        if transform.translation.x.abs() > bounds_x {
+            transform.translation.x = -transform.translation.x.signum() * (bounds_x - 10.0);
         }
-        if transform.translation.y.abs() > bounds {
-            transform.translation.y = -transform.translation.y.signum() * (bounds - 10.0);
+        if transform.translation.y.abs() > bounds_y {
+            transform.translation.y = -transform.translation.y.signum() * (bounds_y - 10.0);
         }
     }
 }
@@ -502,4 +503,107 @@ pub fn update_stats(
     } else {
         stats.probe_phase_diff = None;
     }
+}
+
+pub fn fit_camera_to_viewport(
+    windows: Query<&Window>,
+    mut camera_q: Query<(&mut OrthographicProjection, &mut Transform), With<Camera>>,
+    ui_state: Res<UIState>,
+) {
+    let Ok(window) = windows.get_single() else { return };
+    let Ok((mut projection, mut transform)) = camera_q.get_single_mut() else { return };
+
+    let available_w = window.width() - (super::TOOLBOX_PANEL_WIDTH + super::INSPECTOR_PANEL_WIDTH);
+    let mut available_h = window.height() - super::TOP_BAR_HEIGHT;
+    
+    // Adjust for data panel if visible
+    if ui_state.show_data_panel {
+        available_h -= super::DATA_PANEL_HEIGHT;
+    }
+
+    // Ensure we don't divide by zero or have negative space
+    let available_w = available_w.max(100.0);
+    let available_h = available_h.max(100.0);
+
+    let grid_w = super::GRID_WIDTH as f32 * super::GRID_SCALE;
+    let grid_h = super::GRID_HEIGHT as f32 * super::GRID_SCALE;
+
+    // Calculate scale to fit
+    // We want: grid_dim * scale <= available_dim
+    // So: scale <= available_dim / grid_dim
+    // We need the inverse because OrthographicProjection.scale is essentially "zoom out"
+    // When scale = 1.0, 1 unit = 1 pixel (roughly)
+    // Actually in Bevy: 
+    // logical_viewport_size = projection.area.size() * projection.scale
+    // We want the grid (world units) to cover the viewport pixels.
+    // 
+    // Let's look at how Camera2dBundle works.
+    // Default projection.scale = 1.0 means 1 world unit = 1 logical pixel.
+    // If we want 512 world units to fit into 1000 pixels:
+    // We need 1 world unit = 1000/512 pixels.
+    // 
+    // Wait, Bevy's OrthographicProjection.scale is inverse zoom.
+    // Larger scale = see more world area (zoomed out).
+    // world_height = window_height * scale
+    // We want world_height >= grid_h
+    // So: scale >= grid_h / available_h
+    
+    let scale_x = grid_w / available_w;
+    let scale_y = grid_h / available_h;
+    
+    // Choose the larger scale to ensure the whole grid fits (fit specific dimension? or contain?)
+    // If we want to "cover" the area (fill it), we might cut off edges. 
+    // If we want to "fit" (show all), we take the max.
+    // User asked to "cover full avaliable space".
+    // Usually means "fit inside maximized".
+    let target_scale = scale_x.max(scale_y);
+
+    // Apply with some padding
+    let padding = 1.1;
+    projection.scale = target_scale * padding;
+    
+    // Center the camera in the available space
+    // The viewport center is offset from the window center because of the left/right panels.
+    // Window center is (0,0) in World space relative to camera? No.
+    // Camera transform is world position.
+    // We want the camera to look at (0,0) (center of grid).
+    // But the viewport on screen is shifted.
+    // Tool panel is on left, Inspector on right.
+    // Center of available space X relative to window center:
+    // (TOOL - INSPECTOR) / 2.0
+    
+    let offset_x = (super::TOOLBOX_PANEL_WIDTH - super::INSPECTOR_PANEL_WIDTH) / 2.0;
+    
+    // Vertical offset
+    // Top bar is at top, Data Panel at bottom.
+    // Center Y relative to window center:
+    // (DATA - TOP) / 2.0  (if Y up) or (TOP - DATA) / 2.0 (if Y down)
+    // Bevy UI coordinates: Y down. Window coordinates: Y down?
+    // Camera coordinates: Y up.
+    
+    let data_h = if ui_state.show_data_panel { super::DATA_PANEL_HEIGHT } else { 0.0 };
+    let offset_y = -(super::TOP_BAR_HEIGHT - data_h) / 2.0;
+
+    // We need to shift the camera position so that (0,0) world maps to the center of the available space.
+    // If we move camera RIGHT, the world moves LEFT.
+    // We want world center (0,0) to be at screen center + offset.
+    // So we need to move camera to -offset (scaled to world units).
+    
+    // Actually cleaner: move the viewport on the camera? No, just move camera transform.
+    // To shift the image RIGHT (positive X) on screen, we move camera LEFT (negative X).
+    
+    // Let's re-verify:
+    // Available space X center is at WindowWidth/2 - INSPECTOR + (AvailableWidth/2) ... wait.
+    // Left edge of available space = TOOLBOX_WIDTH.
+    // Right edge = WindowWidth - INSPECTOR_WIDTH.
+    // Center = (TOOLBOX + WindowWidth - INSPECTOR) / 2.0
+    // Window Center = WindowWidth / 2.0
+    // Offset = Center - WindowCenter = (TOOLBOX - INSPECTOR) / 2.0
+    
+    // If Offset is positive (Toolbox > Inspector), center is to the right. 
+    // So we want world(0,0) to appear to the right.
+    // So we move camera to the LEFT.
+    
+    transform.translation.x = -offset_x * projection.scale;
+    transform.translation.y = offset_y * projection.scale;
 }

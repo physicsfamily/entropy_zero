@@ -76,6 +76,13 @@
       "description": "Quantum wave function probability cloud collapse",
       "status": "planned"
     },
+    "binary-spiral": {
+      "dimension": "tensor",
+      "title": "双星螺旋",
+      "title_en": "Binary Spiral",
+      "description": "Binary star particle emission with density field visualization",
+      "status": "active"
+    },
     "orbital-mechanics": {
       "dimension": "tensor",
       "title": "轨道力学",

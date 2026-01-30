@@ -2,7 +2,7 @@
 
 use bevy::prelude::*;
 
-use super::{GRID_SCALE, GRID_SIZE};
+use super::{GRID_SCALE, GRID_WIDTH, GRID_HEIGHT};
 
 // ══════════════════════════════════════════════════════════════════════════════
 // Wave Field (FDTD Grid)
@@ -19,13 +19,13 @@ pub struct WaveField {
 
 impl Default for WaveField {
     fn default() -> Self {
-        let size = GRID_SIZE * GRID_SIZE;
+        let size = GRID_WIDTH * GRID_HEIGHT;
         Self {
             current: vec![0.0; size],
             previous: vec![0.0; size],
             obstacle_map: vec![1.0; size],
-            width: GRID_SIZE,
-            height: GRID_SIZE,
+            width: GRID_WIDTH,
+            height: GRID_HEIGHT,
         }
     }
 }

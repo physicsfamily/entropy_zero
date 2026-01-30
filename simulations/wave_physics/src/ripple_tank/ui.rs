@@ -44,7 +44,7 @@ pub fn render_top_bar_ui(
 // ══════════════════════════════════════════════════════════════════════════════
 
 pub fn render_toolbox_ui(mut contexts: EguiContexts, mut ui_state: ResMut<UIState>) {
-    egui::SidePanel::left("toolbox").default_width(180.0).show(contexts.ctx_mut(), |ui| {
+    egui::SidePanel::left("toolbox").default_width(super::TOOLBOX_PANEL_WIDTH).show(contexts.ctx_mut(), |ui| {
         ui.heading("🧰 Toolbox");
         ui.separator();
 
@@ -112,7 +112,7 @@ pub fn render_inspector_ui(
     mut moving: Query<(&SceneObject, &mut MovingSource)>,
     mut commands: Commands,
 ) {
-    egui::SidePanel::right("inspector").default_width(220.0).show(contexts.ctx_mut(), |ui| {
+    egui::SidePanel::right("inspector").default_width(super::INSPECTOR_PANEL_WIDTH).show(contexts.ctx_mut(), |ui| {
         ui.heading("🔧 Inspector");
         ui.separator();
 
@@ -217,7 +217,7 @@ pub fn render_data_panel_ui(
     rulers: Query<(&Transform, &Ruler)>,
 ) {
     egui::TopBottomPanel::bottom("data_panel")
-        .default_height(150.0)
+        .default_height(super::DATA_PANEL_HEIGHT)
         .resizable(true)
         .show(contexts.ctx_mut(), |ui| {
             ui.horizontal(|ui| {
