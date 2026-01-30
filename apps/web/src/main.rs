@@ -11,7 +11,6 @@
 use bevy::prelude::*;
 use bevy::log::LogPlugin;
 use bevy_egui::EguiPlugin;
-use classical_mechanics::ClassicalMechanicsPlugin;
 use wave_physics::WavePhysicsPlugin;
 
 fn main() {
