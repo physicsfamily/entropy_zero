@@ -6,6 +6,7 @@ members = [
     "crates/ez_ui",
     "crates/ez_physics",
     "simulations/classical_mechanics",
+    "simulations/wave_physics",
     "apps/web",
 ]
 
@@ -32,6 +33,7 @@ ez_renderer = { path = "crates/ez_renderer" }
 ez_ui = { path = "crates/ez_ui" }
 ez_physics = { path = "crates/ez_physics" }
 classical_mechanics = { path = "simulations/classical_mechanics" }
+wave_physics = { path = "simulations/wave_physics" }
 
 
 

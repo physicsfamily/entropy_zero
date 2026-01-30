@@ -12,6 +12,7 @@ use bevy::prelude::*;
 use bevy::log::LogPlugin;
 use bevy_egui::EguiPlugin;
 use classical_mechanics::ClassicalMechanicsPlugin;
+use wave_physics::WavePhysicsPlugin;
 
 fn main() {
     // ═══════════════════════════════════════════════════════════════════
@@ -46,12 +47,14 @@ fn main() {
                     filter: "wgpu=error,wgpu_core=error,wgpu_hal=error,\
                              naga=warn,bevy_render=info,bevy_ecs=warn,\
                              entropy_zero=debug,classical_mechanics=debug,\
-                             ez_core=debug,ez_physics=debug".to_string(),
+                             wave_physics=debug,ez_core=debug,ez_physics=debug".to_string(),
                     ..default()
                 }),
         )
         .add_plugins(EguiPlugin)
-        .add_plugins(ClassicalMechanicsPlugin)
+        // Simulation plugins - comment out to switch between simulations
+        // .add_plugins(ClassicalMechanicsPlugin)
+        .add_plugins(WavePhysicsPlugin)
         // Add debug startup message
         .add_systems(Startup, log_startup_info)
         .run();

@@ -24,6 +24,7 @@ ez_core.workspace = true
 ez_renderer.workspace = true
 ez_ui.workspace = true
 classical_mechanics.workspace = true
+wave_physics.workspace = true
 log.workspace = true
 wasm-bindgen.workspace = true
 
